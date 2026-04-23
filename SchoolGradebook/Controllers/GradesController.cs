@@ -21,9 +21,9 @@ public class GradesController : Controller
         return View(await grades.ToListAsync());
     }
 
-    public IActionResult Create()
+    public IActionResult Create(int studentId)
     {
-        ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name");
+        ViewBag.StudentId = studentId; 
         return View();
     }
 
@@ -36,9 +36,9 @@ public class GradesController : Controller
             grade.CreatedAt = DateTime.Now;
             _context.Add(grade);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Students");
         }
-        ViewData["StudentId"] = new SelectList(_context.Students, "Id", "Name", grade.StudentId);
+        ViewBag.StudentId = grade.StudentId;
         return View(grade);
     }
 }
