@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolGradebook.Data;
 using SchoolGradebook.Models;
+using SchoolGradebook.DTOs;
 
 namespace SchoolGradebook.Controllers;
 
@@ -16,12 +17,21 @@ public class StudentsController : Controller
 
     public async Task<IActionResult> Index(string searchString)
     {
-        var students = from s in _context.Students select s;
+        var query = _context.Students.AsQueryable();
+
         if (!string.IsNullOrEmpty(searchString))
         {
-            students = students.Where(s => s.Name.Contains(searchString));
+            query = query.Where(s => s.Name.Contains(searchString));
         }
-        return View(await students.ToListAsync());
+
+        var students = await query
+            .Select(s => new StudentDTO {
+                Id = s.Id,
+                Name = s.Name,
+                ClassName = s.ClassName
+            }).ToListAsync();
+
+        return View(students);
     }
 
     public IActionResult Create()
