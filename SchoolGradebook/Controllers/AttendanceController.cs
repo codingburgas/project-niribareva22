@@ -1,47 +1,41 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SchoolGradebook.Data;
 using SchoolGradebook.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace SchoolGradebook.Controllers;
 
-[Authorize]
-public class GradesController : Controller
+[Authorize(Roles = "Teacher")]
+public class AttendanceController : Controller
 {
     private readonly ApplicationDbContext _context;
 
-    public GradesController(ApplicationDbContext context)
+    public AttendanceController(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<IActionResult> Index()
-    {
-        var grades = _context.Grades.Include(g => g.Student);
-        return View(await grades.ToListAsync());
-    }
-    [Authorize(Roles = "Teacher")]
     public IActionResult Create(int studentId)
     {
-        ViewBag.StudentId = studentId; 
+        ViewBag.StudentId = studentId;
         ViewBag.Subjects = new SelectList(_context.Subjects, "Id", "Name");
         return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Grade grade)
+    public async Task<IActionResult> Create(Attendance attendance)
     {
         if (ModelState.IsValid)
         {
-            grade.CreatedAt = DateTime.Now;
-            _context.Add(grade);
+            _context.Attendances.Add(attendance);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Students");
         }
-        ViewBag.StudentId = grade.StudentId;
-        return View(grade);
+    
+        ViewBag.Subjects = new SelectList(_context.Subjects, "Id", "Name");
+        return View(attendance);
     }
 }

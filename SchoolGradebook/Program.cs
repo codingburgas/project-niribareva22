@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SchoolGradebook.Data;
+using SchoolGradebook.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +65,21 @@ using (var scope = app.Services.CreateScope())
     if (adminUser != null)
     {
         await userManager.AddToRoleAsync(adminUser, "Teacher");
+    }
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (!context.Subjects.Any())
+    {
+        context.Subjects.AddRange(
+            new Subject { Name = "Mathematics" },
+            new Subject { Name = "History" },
+            new Subject { Name = "English" },
+            new Subject { Name = "Physics" }
+        );
+        context.SaveChanges();
     }
 }
 
