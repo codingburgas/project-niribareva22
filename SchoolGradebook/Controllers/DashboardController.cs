@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolGradebook.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SchoolGradebook.Controllers;
 
+[Authorize(Roles = "Teacher")]
 public class DashboardController : Controller
 {
     private readonly ApplicationDbContext _context;

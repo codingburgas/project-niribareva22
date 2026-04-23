@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SchoolGradebook.Data;
 using SchoolGradebook.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SchoolGradebook.Controllers;
 
+[Authorize]
 public class GradesController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -20,7 +22,7 @@ public class GradesController : Controller
         var grades = _context.Grades.Include(g => g.Student);
         return View(await grades.ToListAsync());
     }
-
+    [Authorize(Roles = "Teacher")]
     public IActionResult Create(int studentId)
     {
         ViewBag.StudentId = studentId; 

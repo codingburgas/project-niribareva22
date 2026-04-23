@@ -3,9 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using SchoolGradebook.Data;
 using SchoolGradebook.Models;
 using SchoolGradebook.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SchoolGradebook.Controllers;
 
+
+[Authorize]
 public class StudentsController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -33,7 +36,8 @@ public class StudentsController : Controller
 
         return View(students);
     }
-
+  
+    [Authorize(Roles = "Teacher")]
     public IActionResult Create()
     {
         return View();
@@ -41,6 +45,7 @@ public class StudentsController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> Create(Student student)
     {
         if (ModelState.IsValid)
@@ -53,6 +58,7 @@ public class StudentsController : Controller
         return View(student);
     }
 
+    [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null) return NotFound();
@@ -63,6 +69,8 @@ public class StudentsController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    
+    [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> Edit(int id, Student student)
     {
         if (id != student.Id) return NotFound();
@@ -76,6 +84,7 @@ public class StudentsController : Controller
         return View(student);
     }
 
+    [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null) return NotFound();
@@ -86,6 +95,7 @@ public class StudentsController : Controller
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Teacher")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var student = await _context.Students.FindAsync(id);

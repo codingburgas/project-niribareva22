@@ -45,4 +45,26 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
+// Логика за роли и автоматично назначаване на администратор
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    
+    string[] roleNames = { "Teacher", "Student" };
+    foreach (var roleName in roleNames)
+    {
+        if (!await roleManager.RoleExistsAsync(roleName))
+        {
+            await roleManager.CreateAsync(new IdentityRole(roleName));
+        }
+    }
+    var adminEmail = "admin@test.com";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser != null)
+    {
+        await userManager.AddToRoleAsync(adminUser, "Teacher");
+    }
+}
+
 app.Run();
