@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/druncho/RiderProjects/SchoolGradebook/SchoolGradebook
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/druncho/RiderProjects/SchoolGradebook/SchoolGradebook/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/druncho/RiderProjects/SchoolGradebook/SchoolGradebook/Views/Grades/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvR3JhZGVzL0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

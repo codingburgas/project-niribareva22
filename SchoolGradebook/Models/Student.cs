@@ -10,5 +10,5 @@ public class Student : BaseEntity
 
     [Required]
     public string ClassName { get; set; }
-    public List<Grade> Grades { get; set; } = new();
+    public List<Grade> Grades { get; set; } = new List<Grade>();
 }

@@ -1,0 +1,23 @@
+@model IEnumerable<dynamic>
+
+<div class="container">
+    <h2>Academic Dashboard</h2>
+    <hr />
+    
+    <table class="table table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Student Name</th>
+            <th>Average Grade</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Average.ToString("F2")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
