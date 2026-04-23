@@ -1,0 +1,20 @@
+@model SchoolGradebook.Models.Grade
+
+<div class="container">
+    <h2>Add Grade</h2>
+    <form asp-action="Create">
+        <div class="form-group mb-3">
+            <label>Student</label>
+            <select asp-for="StudentId" class="form-control" asp-items="ViewBag.StudentId"></select>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Value"></label>
+            <input asp-for="Value" type="number" step="0.1" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Subject"></label>
+            <input asp-for="Subject" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">Save Grade</button>
+    </form>
+</div>

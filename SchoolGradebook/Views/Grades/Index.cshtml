@@ -1,0 +1,24 @@
+@model IEnumerable<SchoolGradebook.Models.Grade>
+
+<div class="container">
+    <h2>Grades</h2>
+    <p><a asp-action="Create" class="btn btn-primary">Add New Grade</a></p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Subject</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@item.Student?.Name</td>
+                <td>@item.Subject</td>
+                <td>@item.Value</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
