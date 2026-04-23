@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SchoolGradebook")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25de764f6ba33f6d1997717e59ef2b62799d9f83")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efbbc923983da7d1169ef46cb39e9aa87394e9b8")]
 [assembly: System.Reflection.AssemblyProductAttribute("SchoolGradebook")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SchoolGradebook")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
