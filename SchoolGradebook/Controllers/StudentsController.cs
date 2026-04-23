@@ -14,9 +14,14 @@ public class StudentsController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string searchString)
     {
-        return View(await _context.Students.ToListAsync());
+        var students = from s in _context.Students select s;
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            students = students.Where(s => s.Name.Contains(searchString));
+        }
+        return View(await students.ToListAsync());
     }
 
     public IActionResult Create()
