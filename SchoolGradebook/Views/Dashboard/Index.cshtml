@@ -9,6 +9,7 @@
         <tr>
             <th>Student Name</th>
             <th>Average Grade</th>
+            <th>Absences</th>
         </tr>
         </thead>
         <tbody>
@@ -16,6 +17,12 @@
             <tr>
                 <td>@item.Name</td>
                 <td>@item.Average.ToString("F2")</td>
+                <td>
+                    @* Показваме червена значка при повече от 5 отсъствия, иначе синя *@
+                    <span class="badge @(item.AbsenceCount > 5 ? "bg-danger" : "bg-primary")">
+                        @item.AbsenceCount
+                    </span>
+                </td>
             </tr>
         }
         </tbody>

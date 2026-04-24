@@ -14,7 +14,10 @@
 
         <div class="form-group mb-3">
             <label asp-for="Subject" class="form-label">Subject</label>
-            <select asp-for="Subject" class="form-control" asp-items="ViewBag.SubjectId"></select>
+            <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.Subjects">
+                <option value="">-- Select Subject --</option>
+            </select>
+            <span asp-validation-for="SubjectId" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-success">Save Grade</button>

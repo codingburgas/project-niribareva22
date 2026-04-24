@@ -2,7 +2,61 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
+        <h1 class="display-4 fw-bold">School Gradebook</h1>
+        <p class="lead">Digital gradebook for efficient management of the educational process.</p>
+        
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="mt-4">
+                <a asp-controller="Students" asp-action="Index" class="btn btn-primary btn-lg">View Students</a>
+                @if (User.IsInRole("Teacher"))
+                {
+                    <a asp-controller="Dashboard" asp-action="Index" class="btn btn-outline-primary btn-lg ms-2">Dashboard</a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="mt-4">
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-lg">Login to get started</a>
+            </div>
+        }
+    </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">Latest Grades</div>
+                    <ul class="list-group list-group-flush">
+                        @if (ViewBag.RecentGrades != null) {
+                            @foreach (var grade in ViewBag.RecentGrades) {
+                                <li class="list-group-item">
+                                    <strong>@grade.Student.Name</strong>: @grade.Value (@grade.Subject.Name)
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-dark">Latest Absences</div>
+                    <ul class="list-group list-group-flush">
+                        @if (ViewBag.RecentAbsences != null) {
+                            @foreach (var abs in ViewBag.RecentAbsences) {
+                                <li class="list-group-item">
+                                    <strong>@abs.Student.Name</strong> - @abs.Subject.Name (@abs.Date.ToShortDateString())
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
 </div>
