@@ -2,24 +2,31 @@
 
 <div class="container">
     <h2>Add Grade</h2>
+    
+    @* Form to submit a new grade, includes anti-forgery token for security *@
     <form asp-action="Create" method="post">
         @Html.AntiForgeryToken()
         
+        @* Hidden field to ensure the grade is associated with the correct student *@
         <input type="hidden" name="StudentId" value="@ViewBag.StudentId" />
 
+        @* Numerical input field with step attribute for decimal grades *@
         <div class="form-group mb-3">
             <label asp-for="Value" class="form-label">Grade (2.00 - 6.00)</label>
             <input asp-for="Value" type="number" step="0.01" class="form-control" required />
         </div>
 
+        @* Dropdown populated from ViewBag for selecting the subject *@
         <div class="form-group mb-3">
             <label asp-for="Subject" class="form-label">Subject</label>
             <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.Subjects">
                 <option value="">-- Select Subject --</option>
             </select>
+            @* Displays validation error if no subject is selected *@
             <span asp-validation-for="SubjectId" class="text-danger"></span>
         </div>
 
+        @* Action buttons for saving the record or returning to the student list *@
         <button type="submit" class="btn btn-success">Save Grade</button>
         <a asp-controller="Students" asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>

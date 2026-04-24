@@ -18,7 +18,7 @@
                 <td>@item.Name</td>
                 <td>@item.Average.ToString("F2")</td>
                 <td>
-                    @* Показваме червена значка при повече от 5 отсъствия, иначе синя *@
+                    @* Display a red badge if absences exceed 5, otherwise use a blue badge *@
                     <span class="badge @(item.AbsenceCount > 5 ? "bg-danger" : "bg-primary")">
                         @item.AbsenceCount
                     </span>

@@ -3,10 +3,12 @@
 }
 
 <div class="container mt-4">
+    @* Main hero section welcoming users *@
     <div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
         <h1 class="display-4 fw-bold">School Gradebook</h1>
         <p class="lead">Digital gradebook for efficient management of the educational process.</p>
         
+        @* Show navigation options based on authentication status and user roles *@
         @if (User.Identity.IsAuthenticated)
         {
             <div class="mt-4">
@@ -25,9 +27,11 @@
         }
     </div>
 
+    @* Display recent activity widgets for authenticated users *@
     @if (User.Identity.IsAuthenticated)
     {
         <div class="row mt-4">
+            @* Widget displaying the latest student grades *@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">Latest Grades</div>
@@ -43,6 +47,7 @@
                 </div>
             </div>
             
+            @* Widget displaying the latest student absences *@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-header bg-warning text-dark">Latest Absences</div>

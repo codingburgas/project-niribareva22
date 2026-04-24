@@ -2,7 +2,10 @@
 
 <div class="container">
     <h2>Grades</h2>
+    
+    @* Link to navigate to the page for adding a new grade record *@
     <p><a asp-action="Create" class="btn btn-primary">Add New Grade</a></p>
+    
     <table class="table">
         <thead>
         <tr>
@@ -14,8 +17,13 @@
         <tbody>
         @foreach (var item in Model) {
             <tr>
+                @* Accessing the Name property of the related Student model *@
                 <td>@item.Student?.Name</td>
+                
+                @* Displaying the Subject (assumes Subject model has a useful ToString() or Name property) *@
                 <td>@item.Subject</td>
+                
+                @* Displaying the numerical grade value *@
                 <td>@item.Value</td>
             </tr>
         }

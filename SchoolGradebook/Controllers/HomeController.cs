@@ -11,6 +11,7 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly ApplicationDbContext _context;
 
+    // Inject logger and database context
     public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
     {
         _logger = logger;
@@ -19,7 +20,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        // Взимаме последните 5 оценки и отсъствия
+        // Get the 5 most recent grades and include related data
         ViewBag.RecentGrades = await _context.Grades
             .OrderByDescending(g => g.Id)
             .Take(5)
@@ -27,6 +28,7 @@ public class HomeController : Controller
             .Include(g => g.Subject)
             .ToListAsync();
 
+        // Get the 5 most recent attendance records and include related data
         ViewBag.RecentAbsences = await _context.Attendances
             .OrderByDescending(a => a.Date)
             .Take(5)
@@ -42,6 +44,7 @@ public class HomeController : Controller
         return View();
     }
 
+    // Display error information
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

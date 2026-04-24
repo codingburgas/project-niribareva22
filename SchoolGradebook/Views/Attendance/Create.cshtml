@@ -1,20 +1,28 @@
 @model SchoolGradebook.Models.Attendance
 
+@* Main container for the form layout *@
 <div class="container">
     <h2>Add Absence</h2>
+    
+    @* Form to submit new attendance record to the Create action *@
     <form asp-action="Create">
+        
+        @* Hidden input to associate the absence with the specific student ID *@
         <input type="hidden" name="StudentId" value="@ViewBag.StudentId" />
 
+        @* Dropdown menu populated from ViewBag for subject selection *@
         <div class="form-group mb-3">
             <label>Subject</label>
             <select name="SubjectId" class="form-control" asp-items="ViewBag.Subjects"></select>
         </div>
 
+        @* Date picker defaulting to the current system date *@
         <div class="form-group mb-3">
             <label>Date</label>
             <input type="date" name="Date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
         </div>
 
+        @* Checkbox to mark if the absence has an official excuse *@
         <div class="form-group mb-3">
             <div class="form-check">
                 <input type="checkbox" name="IsExcused" class="form-check-input" value="true" />
@@ -22,6 +30,7 @@
             </div>
         </div>
 
+        @* Submission and cancellation buttons *@
         <button type="submit" class="btn btn-warning">Save Absence</button>
         <a asp-controller="Students" asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
